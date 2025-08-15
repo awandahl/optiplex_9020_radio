@@ -2,6 +2,84 @@
 
 
 
+## Rsync Backup
+
+### 1. Example Backup Command
+
+```bash
+rsync -a --delete ~/Documents ~/Desktop ~/.config ~/.bashrc ~/.ssh ~/.hamradio ~/.local /mnt/storage/backups/userdata
+```
+
+- `-a` = archive (preserves permissions, timestamps, recursive)
+- `--delete` = removes files on backup that were deleted from source
+- Adjust source directories and backup destination as needed.
+
+***
+
+### 2. Put Your Command in a Script
+
+Create `backup.sh`:
+
+```bash
+#!/bin/bash
+rsync -a --delete ~/Documents ~/Desktop ~/.config ~/.bashrc ~/.ssh ~/.hamradio ~/.local /mnt/storage/backups/userdata
+```
+
+Make script executable:
+
+```bash
+chmod +x ~/backup.sh
+```
+
+
+***
+
+### 3. Automate with Cron (Run Daily)
+
+Edit crontab:
+
+```bash
+crontab -e
+```
+
+Add:
+
+```
+0 2 * * * /home/yourusername/backup.sh
+```
+
+(Runs every day at 2 AM. Change time as needed.)
+
+***
+
+### 4. Restore Files
+
+If you ever need to restore:
+
+```bash
+rsync -a /mnt/storage/backups/userdata/* ~/
+```
+
+(Adjust paths as needed.)
+
+***
+
+### 5. Tips
+
+- Make sure destination (`/mnt/storage/backups/userdata`) exists.
+- For system files (e.g., `/etc`), run as root and include those directories.
+- Exclude large cache folders if space is a concern (`--exclude '.cache/'`).
+- For extra portability, you can archive (`tar czvf`) your configs as well.
+
+***
+
+**Summary:**
+Put your rsync backup command in a script, automate with cron, verify backups regularly, and use rsync to restore when needed. This covers daily file/config backups to your 1TB disk.
+
+
+
+
+
 
 
 ## ReaR Bootable ISO Backup
