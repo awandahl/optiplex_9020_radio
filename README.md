@@ -269,7 +269,7 @@ This generates a bootable ISO image and backup archive in your backup folder.
 - Optional: Burn to USB stick using `dd`:
 
 ```bash
-sudo dd if=/mnt/storage/rear-backups/rear-<hostname>.iso of=/dev/sdX bs=4M status=progress
+sudo dd if=/mnt/storage/rear-backups/<hostname>/rear-<hostname>.iso of=/dev/sdX bs=4M status=progress
 sudo sync
 ```
 
