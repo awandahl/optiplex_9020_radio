@@ -83,6 +83,30 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+rigctld-mchf.service
+```ini
+[Unit]
+Description=Rigctld for mcHF Radio
+After=network.target
+
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/rigctld \
+# FT-817 works!
+  -m 1020 \
+# mcHF seems not to work!
+# -m 1045 \
+  -r /dev/ttymcHF \
+  -s 38400 \
+  -t 4534
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
 cwdaemon.service (default port 6789)
 ```ini
 [Unit]
